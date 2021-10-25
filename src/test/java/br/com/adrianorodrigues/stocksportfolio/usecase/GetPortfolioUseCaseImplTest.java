@@ -23,8 +23,8 @@ class GetPortfolioUseCaseImplTest {
     @Test
     void getPortfolio() {
         Mockito
-                .when(getPortfolioDecoratorUseCase.execute())
-                .thenReturn(Mono.just(Portfolio.builder().build()));
+                .when(getPortfolioDecoratorUseCase.execute(new Portfolio()))
+                .thenReturn(Portfolio.builder().build());
 
         Portfolio portfolio = getPortfolioUseCase.getPortfolio();
 

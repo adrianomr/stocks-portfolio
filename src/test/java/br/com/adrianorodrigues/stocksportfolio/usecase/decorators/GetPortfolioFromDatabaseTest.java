@@ -39,8 +39,8 @@ class GetPortfolioFromDatabaseTest {
                 .when(stocksPortfolioRepository.findByUserId(1L))
                 .thenReturn(StocksPortfolioDto.builder().id(1L).stocks(Collections.singletonList(StockDto.builder().id(1L).ticker("B3SA3").build())).build());
 
-        Mono<Portfolio> portfolio = getPortfolioFromDatabase.execute();
+        Portfolio portfolio = getPortfolioFromDatabase.execute(new Portfolio());
 
-        assertEquals(Portfolio.builder().id(1L).stocks(Collections.singletonList(Stock.builder().id(1L).ticker("B3SA3").build())).build(), portfolio.block());
+        assertEquals(Portfolio.builder().id(1L).stocks(Collections.singletonList(Stock.builder().id(1L).ticker("B3SA3").build())).build(), portfolio);
     }
 }

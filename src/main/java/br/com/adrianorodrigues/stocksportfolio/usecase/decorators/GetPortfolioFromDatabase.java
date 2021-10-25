@@ -3,17 +3,17 @@ package br.com.adrianorodrigues.stocksportfolio.usecase.decorators;
 import br.com.adrianorodrigues.stocksportfolio.adapter.domain.PortfolioAdapter;
 import br.com.adrianorodrigues.stocksportfolio.context.TokenContext;
 import br.com.adrianorodrigues.stocksportfolio.domain.Portfolio;
-import br.com.adrianorodrigues.stocksportfolio.entrypoint.rest.dto.PortfolioDto;
 import br.com.adrianorodrigues.stocksportfolio.external.repository.StocksPortfolioRepository;
 import br.com.adrianorodrigues.stocksportfolio.external.repository.dto.StocksPortfolioDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.MonoSink;
 
 @Service
 @RequiredArgsConstructor
+@Order(1)
 public class GetPortfolioFromDatabase implements GetPortfolioDecoratorUseCase{
 
 
@@ -21,15 +21,11 @@ public class GetPortfolioFromDatabase implements GetPortfolioDecoratorUseCase{
     private final TokenContext tokenContext;
 
     @Override
-    public Mono<Portfolio> execute() {
-        return Mono.create(this::findPortfolio);
-    }
-
-    private void findPortfolio(MonoSink<Portfolio> sink) {
+    public Portfolio execute(Portfolio portfolio) {
         StocksPortfolioDto portfolioDto = repository
                 .findByUserId(tokenContext.getTokenDto().getUserId());
 
-        sink.success(PortfolioAdapter.INSTACE.convert(portfolioDto));
+        return PortfolioAdapter.INSTACE.convert(portfolioDto);
     }
 
 }

@@ -19,17 +19,9 @@ public class GetPortfolioUseCaseImpl implements GetPortfolioUseCase {
 
     @Override
     public Portfolio getPortfolio() {
-        List<Mono<Portfolio>> portfolios = getPortfolioDecoratorUseCases
-                .stream()
-                .map(GetPortfolioDecoratorUseCase::execute)
-                .collect(Collectors.toList());
-        return Mono
-                .zip(portfolios, objects -> Arrays
-                        .stream(objects)
-                        .map(Portfolio.class::cast)
-                        .reduce(Portfolio::aggregate)
-                )
-                .block()
-                .orElseThrow();
+        Portfolio portfolio = new Portfolio();
+        getPortfolioDecoratorUseCases
+                .forEach(getPortfolioDecoratorUseCase -> getPortfolioDecoratorUseCase.execute(portfolio));
+        return portfolio;
     }
 }

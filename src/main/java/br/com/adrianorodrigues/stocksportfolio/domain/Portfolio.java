@@ -3,21 +3,19 @@ package br.com.adrianorodrigues.stocksportfolio.domain;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-@Builder
+@NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Data
 public class Portfolio {
 
     private Long id;
-    private List<Stock> stocks;
+    @Builder.Default
+    private List<Stock> stocks = new ArrayList<>();
 
-    public Portfolio aggregate(Portfolio portfolio) {
-        id = Objects.isNull(id) ? portfolio.getId() : id;
-        stocks = Objects.isNull(stocks) ? portfolio.getStocks() : stocks;
-        return this;
-    }
 }
