@@ -12,7 +12,7 @@ public class StocksClientImpl implements StocksClient {
     private final ReactiveWebClient reactiveWebClient;
 
     public StocksClientImpl() {
-        this.reactiveWebClient = new ReactiveWebClientImpl("http://localhost:8089//stocks");
+        this.reactiveWebClient = new ReactiveWebClientImpl("http://localhost:8089/stocks");
     }
 
     @Override

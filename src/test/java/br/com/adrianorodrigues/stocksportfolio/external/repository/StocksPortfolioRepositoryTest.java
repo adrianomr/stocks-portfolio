@@ -2,6 +2,7 @@ package br.com.adrianorodrigues.stocksportfolio.external.repository;
 
 import br.com.adrianorodrigues.stocksportfolio.external.repository.dto.StockDto;
 import br.com.adrianorodrigues.stocksportfolio.external.repository.dto.StocksPortfolioDto;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,10 @@ class StocksPortfolioRepositoryTest {
     @Autowired
     StocksPortfolioRepository stocksPortfolioRepository;
 
-    @BeforeEach
-    void setUp() {
-        stockRepository.deleteAll();
+    @AfterEach
+    void tearDown() {
         stocksPortfolioRepository.deleteAll();
+        stockRepository.deleteAll();
     }
 
     @Test

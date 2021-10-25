@@ -27,4 +27,6 @@ public class StocksPortfolioDto {
             inverseJoinColumns = { @JoinColumn(name = "portfolio_id") }
     )
     private List<StockDto> stocks;
+    private Long userId;
+
 }
