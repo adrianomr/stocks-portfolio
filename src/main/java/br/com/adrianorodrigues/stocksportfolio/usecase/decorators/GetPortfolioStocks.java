@@ -5,17 +5,18 @@ import br.com.adrianorodrigues.stocksportfolio.domain.Stock;
 import br.com.adrianorodrigues.stocksportfolio.external.gateway.StocksGateway;
 import br.com.adrianorodrigues.stocksportfolio.external.gateway.dto.StockDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Order(2)
+@Slf4j
 public class GetPortfolioStocks implements GetPortfolioDecoratorUseCase{
 
 
@@ -29,9 +30,14 @@ public class GetPortfolioStocks implements GetPortfolioDecoratorUseCase{
                 .map(this::updateStock)
                 .collect(Collectors.toList());
 
-        Mono.zip(monos, objects -> objects).block();
+        Mono.zip(monos, objects -> objects).onErrorMap(this::handleError).block();
 
         return portfolio;
+    }
+
+    private Throwable handleError(Throwable throwable) {
+        log.error("Error fetching stocks data", throwable);
+        return throwable;
     }
 
     private Mono<Stock> updateStock(Stock stock) {

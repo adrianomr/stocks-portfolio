@@ -16,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import reactor.core.publisher.Mono;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(classes = GetPortfolioFromDatabase.class)
@@ -37,7 +38,7 @@ class GetPortfolioFromDatabaseTest {
                 .thenReturn(TokenDto.builder().userId(1L).build());
         Mockito
                 .when(stocksPortfolioRepository.findByUserId(1L))
-                .thenReturn(StocksPortfolioDto.builder().id(1L).stocks(Collections.singletonList(StockDto.builder().id(1L).ticker("B3SA3").build())).build());
+                .thenReturn(Optional.of(StocksPortfolioDto.builder().id(1L).stocks(Collections.singletonList(StockDto.builder().id(1L).ticker("B3SA3").build())).build()));
 
         Portfolio portfolio = getPortfolioFromDatabase.execute(new Portfolio());
 

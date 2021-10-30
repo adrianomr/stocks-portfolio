@@ -1,15 +1,33 @@
 package br.com.adrianorodrigues.stocksportfolio.context;
 
 import br.com.adrianorodrigues.stocksportfolio.context.dto.TokenDto;
+import br.com.adrianorodrigues.stocksportfolio.exceptions.InvalidTokenException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
+
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class TokenContext {
 
     private static final InheritableThreadLocal<TokenDto> TOKEN = new InheritableThreadLocal<>();
+    private final Base64.Decoder decoder = Base64.getDecoder();
+    private final ObjectMapper objectMapper;
 
-    public void setTokenDto(TokenDto tokenDto){
-        TOKEN.set(tokenDto);
+    public void fromBearerToken(String authorization) {
+        try {
+            String[] chunks = authorization.split("\\.");
+            String payload = new String(decoder.decode(chunks[1]));
+            TokenDto tokenDto = objectMapper.readValue(payload, TokenDto.class);
+            TOKEN.set(tokenDto);
+        } catch (JsonProcessingException e) {
+            throw new InvalidTokenException("Error parsing payload", e);
+        }
     }
 
     public TokenDto getTokenDto(){

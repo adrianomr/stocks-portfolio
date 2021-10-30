@@ -1,22 +1,20 @@
 package br.com.adrianorodrigues.stocksportfolio.entrypoint.rest.dto;
 
-import br.com.adrianorodrigues.stocksportfolio.domain.Stock;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-public class PortfolioDto {
+public class StockDto {
 
     private Long id;
-    @Builder.Default
-    private List<Stock> stocks = new ArrayList<>();
+    private String ticker;
+    private BigDecimal price;
 
 }
