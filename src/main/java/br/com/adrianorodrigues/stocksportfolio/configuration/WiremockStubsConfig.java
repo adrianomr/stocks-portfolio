@@ -13,13 +13,26 @@ import static com.github.tomakehurst.wiremock.client.WireMock.ok;
 @Profile("dev")
 public class WiremockStubsConfig {
 
+    public static final String CONTENT_TYPE = "Content-Type";
     private final WireMockServer wireMockServer = new WireMockServer(8089);
     @Bean
     WireMockServer createWiremockServer(){
         wireMockServer.start();
         wireMockServer.stubFor(get("/stocks/1")
                 .willReturn(ok("{\"price\": 100}")
-                        .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
+                        .withHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                        .withFixedDelay(1000)
+                )
+        );
+        wireMockServer.stubFor(get("/stocks/2")
+                .willReturn(ok("{\"price\": 50}")
+                        .withHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                        .withFixedDelay(1000)
+                )
+        );
+        wireMockServer.stubFor(get("/stocks/3")
+                .willReturn(ok("{\"price\": 10}")
+                        .withHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                         .withFixedDelay(1000)
                 )
         );

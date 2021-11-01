@@ -13,23 +13,37 @@ import org.springframework.context.annotation.Profile;
 import java.util.Arrays;
 
 @Configuration
-public class FillDataBase {
-
+public class FillDataBaseConfig {
 
     @Bean
     @Profile("dev")
     public CommandLineRunner run(@Autowired StocksPortfolioRepository stocksPortfolioRepository,
                                  @Autowired StockRepository stockRepository) {
         return args -> {
-            StockDto stockDto = stockRepository.save(StockDto.builder().id(1l).ticker("B3SA3").build());
+            StockDto b3sa3 = stockRepository.save(buildB3SA3());
+            StockDto bcff11 = stockRepository.save(buildBCFF11());
+            StockDto hgre11 = stockRepository.save(buildHGRE11());
+
             stocksPortfolioRepository
                     .save(StocksPortfolioDto
                             .builder()
                             .userId(1l)
-                            .stocks(Arrays.asList(stockDto))
+                            .stocks(Arrays.asList(b3sa3, bcff11, hgre11))
                             .build());
         };
 
+    }
+
+    private StockDto buildB3SA3() {
+        return StockDto.builder().id(1l).ticker("B3SA3").build();
+    }
+
+    private StockDto buildBCFF11() {
+        return StockDto.builder().id(2l).ticker("BCFF11").build();
+    }
+
+    private StockDto buildHGRE11() {
+        return StockDto.builder().id(3l).ticker("HGRE11").build();
     }
 
 }
