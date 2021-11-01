@@ -2,7 +2,6 @@ package br.com.adrianorodrigues.stocksportfolio.context;
 
 import br.com.adrianorodrigues.stocksportfolio.context.dto.TokenDto;
 import br.com.adrianorodrigues.stocksportfolio.exceptions.InvalidTokenException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +24,8 @@ public class TokenContext {
             String payload = new String(decoder.decode(chunks[1]));
             TokenDto tokenDto = objectMapper.readValue(payload, TokenDto.class);
             TOKEN.set(tokenDto);
-        } catch (JsonProcessingException e) {
-            throw new InvalidTokenException("Error parsing payload", e);
+        } catch (Exception e) {
+            throw new InvalidTokenException("Invalid token", e);
         }
     }
 

@@ -5,6 +5,7 @@ import br.com.adrianorodrigues.stocksportfolio.domain.Stock;
 import br.com.adrianorodrigues.stocksportfolio.external.gateway.StocksGateway;
 import br.com.adrianorodrigues.stocksportfolio.external.gateway.StocksGatewayImpl;
 import br.com.adrianorodrigues.stocksportfolio.external.gateway.dto.StockDto;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +18,7 @@ import reactor.core.publisher.Mono;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,8 +29,8 @@ class GetPortfolioStocksTest {
     @InjectMocks
     GetPortfolioStocks getPortfolioStocks;
 
-    @BeforeEach
-    void setUp() {
+    @Test
+    void execute() {
         Mockito
                 .when(stocksGateway.getStock("1"))
                 .thenReturn(buildMonoStock("B3SA3", 1));
@@ -41,25 +43,43 @@ class GetPortfolioStocksTest {
         Mockito
                 .when(stocksGateway.getStock("4"))
                 .thenReturn(buildMonoStock("BCFF11", 4));
-    }
 
-    private Mono<StockDto> buildMonoStock(String ticker, double price) {
-        return Mono
-                .just(StockDto
-                .builder()
-                        .id(1L)
-                        .price(BigDecimal.valueOf(price))
-                        .ticker(ticker)
-                .build());
-    }
-
-    @Test
-    void execute() {
         Portfolio portfolio = buildPortfolio();
 
         getPortfolioStocks.execute(portfolio);
 
         assertThatStocksPriceIsFilled(portfolio);
+    }
+
+    @Test
+    void executeWhenStockNotFoundShouldThrowException() {
+        Portfolio portfolio = buildStockNotFoundPortfolio();
+
+        Mockito
+                .when(stocksGateway.getStock("5"))
+                .thenThrow(new RuntimeException("stock not found"));
+
+        assertThrows(RuntimeException.class, () -> getPortfolioStocks.execute(portfolio));
+    }
+
+    private Mono<StockDto> buildMonoStock(String ticker, double price) {
+        return Mono
+                .just(StockDto
+                        .builder()
+                        .id(1L)
+                        .price(BigDecimal.valueOf(price))
+                        .ticker(ticker)
+                        .build());
+    }
+
+    private Portfolio buildStockNotFoundPortfolio() {
+        return Portfolio
+                .builder()
+                .stocks(Arrays.
+                        asList(
+                                buildStock(5L, "XPLG11")
+                        ))
+                .build();
     }
 
     private void assertThatStocksPriceIsFilled(Portfolio portfolio) {

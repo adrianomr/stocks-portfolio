@@ -30,14 +30,11 @@ public class GetPortfolioStocks implements GetPortfolioDecoratorUseCase{
                 .map(this::updateStock)
                 .collect(Collectors.toList());
 
-        Mono.zip(monos, objects -> objects).onErrorMap(this::handleError).block();
+        Mono
+                .zip(monos, objects -> objects)
+                .block();
 
         return portfolio;
-    }
-
-    private Throwable handleError(Throwable throwable) {
-        log.error("Error fetching stocks data", throwable);
-        return throwable;
     }
 
     private Mono<Stock> updateStock(Stock stock) {

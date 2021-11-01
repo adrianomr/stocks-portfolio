@@ -1,10 +1,8 @@
 package br.com.adrianorodrigues.stocksportfolio.exceptions;
 
 import br.com.adrianorodrigues.stocksportfolio.interceptor.ErrorDto;
-import lombok.Data;
 import org.springframework.http.HttpStatus;
 
-@Data
 public abstract class BaseException extends RuntimeException{
 
     private final HttpStatus statusCode;
@@ -20,6 +18,14 @@ public abstract class BaseException extends RuntimeException{
     }
 
     public ErrorDto toErrorDto(){
-        return ErrorDto.builder().status(getStatusCode().value()).message(getMessage()).build();
+        return ErrorDto
+                .builder()
+                .status(statusCode.value())
+                .message(getMessage())
+                .build();
+    }
+
+    public HttpStatus getStatusCode() {
+        return statusCode;
     }
 }

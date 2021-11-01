@@ -1,6 +1,5 @@
 package br.com.adrianorodrigues.stocksportfolio.entrypoint.rest.dto;
 
-import br.com.adrianorodrigues.stocksportfolio.domain.Stock;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +16,6 @@ public class PortfolioDto {
 
     private Long id;
     @Builder.Default
-    private List<Stock> stocks = new ArrayList<>();
+    private List<StockDto> stocks = new ArrayList<>();
 
 }
