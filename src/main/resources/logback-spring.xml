@@ -22,7 +22,7 @@
         </encoder>
     </appender>
 
-    <appender name="GatewayLoggerAppender"
+    <appender name="DefaultLogger"
               class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
@@ -37,7 +37,11 @@
     </root>
 
     <logger name="br.com.adrianorodrigues.stocksportfolio.external.gateway" level="TRACE" additivity="false">
-        <appender-ref ref="GatewayLoggerAppender"/>
+        <appender-ref ref="DefaultLogger"/>
+    </logger>
+
+    <logger name="br.com.adrianorodrigues.stocksportfolio.usecase" level="TRACE" additivity="false">
+        <appender-ref ref="DefaultLogger"/>
     </logger>
 
 
