@@ -1,9 +1,6 @@
 package br.com.adrianorodrigues.stocksportfolio.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -11,10 +8,18 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Builder
 @Data
+@EqualsAndHashCode
 public class Stock {
 
     private Long id;
     private String ticker;
-    private BigDecimal price;
 
+    @Builder.Default
+    private BigDecimal price = BigDecimal.ZERO;
+    @Builder.Default
+    private BigDecimal amount = BigDecimal.ZERO;
+
+    public void update(Transaction transaction) {
+        amount = amount.add(transaction.getAmount());
+    }
 }

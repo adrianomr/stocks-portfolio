@@ -1,11 +1,9 @@
 package br.com.adrianorodrigues.stocksportfolio.external.repository.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -14,19 +12,18 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "stocks_portfolio")
+@EqualsAndHashCode
 public class StocksPortfolioDto {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToMany
-    @JoinTable(
-            name = "stocks_portfolios",
-            joinColumns = { @JoinColumn(name = "stock_id") },
-            inverseJoinColumns = { @JoinColumn(name = "portfolio_id") }
-    )
-    private List<StockDto> stocks;
+    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @Builder.Default
+    private List<StockDto> stocks = new ArrayList<>();
+
+    @Column
     private Long userId;
 
 }

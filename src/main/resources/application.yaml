@@ -6,3 +6,7 @@ spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
 amazon:
   accessKey: ${AMAZON_ACCESS_KEY}
   secretKey: ${AMAZON_SECRET_KEY}
+
+server:
+  tomcat:
+    max-threads: 200

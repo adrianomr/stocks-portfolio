@@ -1,9 +1,6 @@
 package br.com.adrianorodrigues.stocksportfolio.external.repository.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,12 +10,16 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Data
+@EqualsAndHashCode
 public class StockDto {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column
     String ticker;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    StocksPortfolioDto portfolio;
 
 }

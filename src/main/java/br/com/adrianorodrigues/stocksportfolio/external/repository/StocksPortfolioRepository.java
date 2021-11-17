@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface StocksPortfolioRepository extends JpaRepository<StocksPortfolioDto, Long> {
 
     Optional<StocksPortfolioDto> findByUserId(Long userId);
+
 }

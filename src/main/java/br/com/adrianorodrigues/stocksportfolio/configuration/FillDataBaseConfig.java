@@ -1,6 +1,5 @@
 package br.com.adrianorodrigues.stocksportfolio.configuration;
 
-import br.com.adrianorodrigues.stocksportfolio.external.repository.StockRepository;
 import br.com.adrianorodrigues.stocksportfolio.external.repository.StocksPortfolioRepository;
 import br.com.adrianorodrigues.stocksportfolio.external.repository.dto.StockDto;
 import br.com.adrianorodrigues.stocksportfolio.external.repository.dto.StocksPortfolioDto;
@@ -17,12 +16,11 @@ public class FillDataBaseConfig {
 
     @Bean
     @Profile("dev")
-    public CommandLineRunner run(@Autowired StocksPortfolioRepository stocksPortfolioRepository,
-                                 @Autowired StockRepository stockRepository) {
+    public CommandLineRunner run(@Autowired StocksPortfolioRepository stocksPortfolioRepository) {
         return args -> {
-            StockDto b3sa3 = stockRepository.save(buildB3SA3());
-            StockDto bcff11 = stockRepository.save(buildBCFF11());
-            StockDto hgre11 = stockRepository.save(buildHGRE11());
+            StockDto b3sa3 = buildB3SA3();
+            StockDto bcff11 = buildBCFF11();
+            StockDto hgre11 = buildHGRE11();
 
             stocksPortfolioRepository
                     .save(StocksPortfolioDto
