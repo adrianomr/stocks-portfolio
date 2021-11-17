@@ -38,7 +38,7 @@ public class GetPortfolioStocks implements GetPortfolioDecoratorUseCase{
     }
 
     private Mono<Stock> updateStock(Stock stock) {
-        Mono<StockDto> stockDto = gateway.getStock(stock.getId().toString());
+        Mono<StockDto> stockDto = gateway.getStock(stock.getTicker());
         return stockDto
                 .map(stockDto1 -> fillPrice(stock, stockDto1))
                 .onErrorMap(throwable -> throwable);

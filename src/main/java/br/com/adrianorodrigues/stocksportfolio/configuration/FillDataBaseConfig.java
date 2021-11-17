@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 public class FillDataBaseConfig {
@@ -21,27 +23,34 @@ public class FillDataBaseConfig {
             StockDto b3sa3 = buildB3SA3();
             StockDto bcff11 = buildBCFF11();
             StockDto hgre11 = buildHGRE11();
+            List<StockDto> stocks = Arrays.asList(b3sa3, bcff11, hgre11);
 
-            stocksPortfolioRepository
+            StocksPortfolioDto portfolioDto = stocksPortfolioRepository
                     .save(StocksPortfolioDto
                             .builder()
                             .userId(1l)
-                            .stocks(Arrays.asList(b3sa3, bcff11, hgre11))
+                            .stocks(new ArrayList<>())
                             .build());
+            stocks
+                    .forEach(stockDto -> stockDto.setPortfolio(portfolioDto));
+
+            portfolioDto.getStocks().addAll(stocks);
+
+            stocksPortfolioRepository.save(portfolioDto);
         };
 
     }
 
     private StockDto buildB3SA3() {
-        return StockDto.builder().id(1l).ticker("B3SA3").build();
+        return StockDto.builder().ticker("B3SA3").build();
     }
 
     private StockDto buildBCFF11() {
-        return StockDto.builder().id(2l).ticker("BCFF11").build();
+        return StockDto.builder().ticker("BCFF11").build();
     }
 
     private StockDto buildHGRE11() {
-        return StockDto.builder().id(3l).ticker("HGRE11").build();
+        return StockDto.builder().ticker("HGRE11").build();
     }
 
 }

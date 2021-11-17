@@ -18,19 +18,19 @@ public class WiremockStubsConfig {
     @Bean
     WireMockServer createWiremockServer(){
         wireMockServer.start();
-        wireMockServer.stubFor(get("/stocks/1")
+        wireMockServer.stubFor(get("/stocks/BCFF11")
                 .willReturn(ok("{\"price\": 100}")
                         .withHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                         .withFixedDelay(1000)
                 )
         );
-        wireMockServer.stubFor(get("/stocks/2")
+        wireMockServer.stubFor(get("/stocks/B3SA3")
                 .willReturn(ok("{\"price\": 50}")
                         .withHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                         .withFixedDelay(1000)
                 )
         );
-        wireMockServer.stubFor(get("/stocks/3")
+        wireMockServer.stubFor(get("/stocks/HGRE11")
                 .willReturn(ok("{\"price\": 10}")
                         .withHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                         .withFixedDelay(1000)
