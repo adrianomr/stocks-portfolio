@@ -3,6 +3,7 @@ package br.com.adrianorodrigues.stocksportfolio.external.gateway.client;
 import br.com.adrianorodrigues.stocksportfolio.external.gateway.dto.StockDto;
 import br.com.adrianorodrigues.stocksportfolio.external.gateway.reactive.ReactiveWebClient;
 import br.com.adrianorodrigues.stocksportfolio.external.gateway.reactive.ReactiveWebClientImpl;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -11,8 +12,8 @@ public class StocksClientImpl implements StocksClient {
 
     private final ReactiveWebClient reactiveWebClient;
 
-    public StocksClientImpl() {
-        this.reactiveWebClient = new ReactiveWebClientImpl("http://localhost:8089/stocks");
+    public StocksClientImpl(@Value("${gateway.url.stocks}") String url) {
+        this.reactiveWebClient = new ReactiveWebClientImpl(url);
     }
 
     @Override
