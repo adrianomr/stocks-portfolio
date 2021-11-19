@@ -8,6 +8,10 @@ amazon:
   accessKey: test
   secretKey: test
 
+gateway:
+  url:
+    stocks: http://localhost:8089/stocks
+
 server:
   tomcat:
     max-threads: 200
