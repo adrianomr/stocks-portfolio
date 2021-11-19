@@ -13,6 +13,8 @@ public class StockDtoAdapter {
                 .builder()
                 .id(stock.getId())
                 .ticker(stock.getTicker())
+                .amount(stock.getAmount())
+                .priceAvg(stock.getPriceAvg())
                 .portfolio(portfolio)
                 .build();
     }

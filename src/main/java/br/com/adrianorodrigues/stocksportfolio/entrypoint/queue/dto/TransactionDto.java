@@ -1,26 +1,18 @@
 package br.com.adrianorodrigues.stocksportfolio.entrypoint.queue.dto;
 
+import br.com.adrianorodrigues.stocksportfolio.enums.TransactionType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 @Data
 public class TransactionDto {
-    @JsonProperty("operation_date")
-    private String operationDate;
-    private String action;
-    @JsonProperty("market_type")
-    private String marketType;
-    @JsonProperty("raw_negotiation_code")
-    private String rawNegotiationCode;
-    @JsonProperty("asset_specification")
-    private String assetSpecification;
-    @JsonProperty("unit_amount")
-    private int unitAmount;
-    @JsonProperty("unit_price")
-    private String unitPrice;
-    @JsonProperty("total_price")
-    private String totalPrice;
-    @JsonProperty("quotation_factor")
-    private int quotationFactor;
+    private LocalDate date;
+    private String ticker;
+    private BigDecimal amount;
+    private BigDecimal price;
+    private TransactionType type;
 }
 

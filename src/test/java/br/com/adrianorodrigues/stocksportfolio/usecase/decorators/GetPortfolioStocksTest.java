@@ -32,16 +32,16 @@ class GetPortfolioStocksTest {
     @Test
     void execute() {
         Mockito
-                .when(stocksGateway.getStock("1"))
+                .when(stocksGateway.getStock("B3SA3"))
                 .thenReturn(buildMonoStock("B3SA3", 1));
         Mockito
-                .when(stocksGateway.getStock("2"))
+                .when(stocksGateway.getStock("ITUB4"))
                 .thenReturn(buildMonoStock("ITUB4", 2));
         Mockito
-                .when(stocksGateway.getStock("3"))
+                .when(stocksGateway.getStock("ITSA4"))
                 .thenReturn(buildMonoStock("ITSA4", 3));
         Mockito
-                .when(stocksGateway.getStock("4"))
+                .when(stocksGateway.getStock("BCFF11"))
                 .thenReturn(buildMonoStock("BCFF11", 4));
 
         Portfolio portfolio = buildPortfolio();

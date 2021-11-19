@@ -95,6 +95,12 @@
             <type>jar</type>
         </dependency>
 
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <!--		TEST DEPENDENCIES       -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

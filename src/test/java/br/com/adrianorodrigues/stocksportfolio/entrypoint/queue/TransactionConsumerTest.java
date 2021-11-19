@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class TransactionConsumerTest {
 
     @Autowired
-    TransactionConsumer transactionConsumer;
+    UpdatePortfolioConsumer transactionConsumer;
     @Autowired
     StocksPortfolioRepository stocksPortfolioRepository;
 
@@ -26,7 +26,7 @@ class TransactionConsumerTest {
 
     @Test
     void createTransaction() {
-        String transactionJson = "{ \"id\": 1, \"transactions\": [{\"operation_date\": \"2020-06-22\", \"action\": \"buy\", \"market_type\": \"unit\", \"raw_negotiation_code\": \"TEST11\", \"asset_specification\": \"FII HG REAL CI\", \"unit_amount\": 1, \"unit_price\": \"149.97\", \"total_price\": \"149.97\", \"quotation_factor\": 1}]}\n";
+        String transactionJson = "{ \"id\": 1, \"transactions\": [{\"date\": \"2020-06-22\", \"action\": \"buy\", \"ticker\": \"TEST11\", \"amount\": 1, \"price\": \"149.97\"}]}\n";
 
         transactionConsumer.process(transactionJson);
 

@@ -22,9 +22,10 @@ public class TransactionAdapter {
     public static Transaction convert(TransactionDto transactionDto) {
         return Transaction
                 .builder()
-                .amount(BigDecimal.valueOf(transactionDto.getUnitAmount()))
-                .price(new BigDecimal(transactionDto.getUnitPrice()))
-                .stock(Stock.builder().ticker(transactionDto.getRawNegotiationCode()).build())
+                .amount(transactionDto.getAmount())
+                .price(transactionDto.getPrice())
+                .type(transactionDto.getType())
+                .stock(Stock.builder().ticker(transactionDto.getTicker()).build())
                 .build();
     }
 
