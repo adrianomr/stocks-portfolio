@@ -11,7 +11,7 @@ amazon:
 
 gateway:
   url:
-    stocks: http://localhost:8089/stocks
+    stocks: https://ar-stocks.herokuapp.com/
 
 server:
   tomcat:

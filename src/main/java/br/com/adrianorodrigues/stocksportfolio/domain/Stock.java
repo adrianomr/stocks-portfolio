@@ -29,4 +29,5 @@ public class Stock {
                 .divide(amount.add(transaction.getAmount()), 6, RoundingMode.HALF_EVEN);
         amount = amount.add(transaction.getAmount());
     }
+
 }

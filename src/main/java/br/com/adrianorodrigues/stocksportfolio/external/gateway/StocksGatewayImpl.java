@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,14 +19,16 @@ public class StocksGatewayImpl implements StocksGateway{
 
     @Override
     public Mono<StockDto> getStock(String id) {
-        return stocksClient.getStock(id);
+        return stocksClient
+                .getStock(id)
+                .onErrorReturn(StockDto.builder().ticker(id).price(BigDecimal.ZERO).build());
     }
 
     @Override
     public Mono<List<StockDto>> getStocks(List<String> ids) {
         List<Mono<StockDto>> stocks = ids
                 .stream()
-                .map(id -> getStock(id))
+                .map(this::getStock)
                 .collect(Collectors.toList());
 
         return Mono

@@ -17,10 +17,10 @@ public class StocksClientImpl implements StocksClient {
     }
 
     @Override
-    public Mono<StockDto> getStock(String id) {
+    public Mono<StockDto> getStock(String ticker) {
         return reactiveWebClient
                 .get()
-                .uri(uriBuilder -> uriBuilder.path("/"+id).build())
+                .uri(uriBuilder -> uriBuilder.path("stocks/"+ticker).build())
                 .retrieve()
                 .bodyToMono(StockDto.class)
                 .onErrorMap(throwable -> throwable);
