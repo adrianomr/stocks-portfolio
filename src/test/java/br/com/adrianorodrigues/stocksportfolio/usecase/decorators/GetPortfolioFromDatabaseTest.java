@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import reactor.core.publisher.Mono;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ class GetPortfolioFromDatabaseTest {
                 .thenReturn(TokenDto.builder().userId(1L).build());
         Mockito
                 .when(stocksPortfolioRepository.findByUserId(1L))
-                .thenReturn(Optional.of(StocksPortfolioDto.builder().id(1L).stocks(Collections.singletonList(StockDto.builder().id(1L).ticker("B3SA3").build())).build()));
+                .thenReturn(Optional.of(StocksPortfolioDto.builder().id(1L).stocks(Collections.singletonList(StockDto.builder().id(1L).priceAvg(BigDecimal.ZERO).amount(BigDecimal.ZERO).ticker("B3SA3").build())).build()));
 
         Portfolio portfolio = getPortfolioFromDatabase.execute(new Portfolio());
 
