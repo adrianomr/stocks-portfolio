@@ -27,7 +27,7 @@ public class Portfolio {
 
     private void update(Transaction transaction) {
         Stock stock = findStock(transaction)
-                .orElse(addStock(transaction));
+                .orElseGet(() -> addStock(transaction));
 
         stock.update(transaction);
     }
@@ -40,7 +40,7 @@ public class Portfolio {
     private Optional<Stock> findStock(Transaction transaction) {
         return stocks
                 .stream()
-                .filter(stock -> transaction.getStock().equals(stock))
+                .filter(stock -> transaction.getStock().getTicker().equalsIgnoreCase(stock.getTicker()))
                 .findAny();
     }
 }

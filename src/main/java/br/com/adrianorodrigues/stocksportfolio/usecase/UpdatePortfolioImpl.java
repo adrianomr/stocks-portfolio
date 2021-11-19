@@ -21,7 +21,7 @@ public class UpdatePortfolioImpl implements UpdatePortfolio{
 
     @Override
     public Portfolio updatePortfolio(Long userId, List<Transaction> transactions) {
-        Portfolio portfolio = getPortfolio(userId).orElse(createPortfolio(userId));
+        Portfolio portfolio = getPortfolio(userId).orElseGet(() -> createPortfolio(userId));
 
         portfolio.update(transactions);
 
