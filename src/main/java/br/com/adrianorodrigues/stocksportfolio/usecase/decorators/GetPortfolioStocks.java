@@ -45,7 +45,7 @@ public class GetPortfolioStocks implements GetPortfolioDecoratorUseCase{
     }
 
     private Stock fillPrice(Stock stock, StockDto stockDto){
-        stock.setPrice(stockDto.getPrice());
+        stock.updateWithPrice(stockDto.getPrice());
         return stock;
     }
 

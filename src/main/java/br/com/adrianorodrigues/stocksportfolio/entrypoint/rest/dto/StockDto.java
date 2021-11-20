@@ -16,5 +16,10 @@ public class StockDto {
     private Long id;
     private String ticker;
     private BigDecimal price;
+    private BigDecimal priceAvg;
+    private BigDecimal amount;
+    private BigDecimal investedAmount;
+    private BigDecimal currentAmount;
+    private BigDecimal balance;
 
 }

@@ -21,6 +21,12 @@ public class Stock {
     private BigDecimal price = BigDecimal.ZERO;
     @Builder.Default
     private BigDecimal amount = BigDecimal.ZERO;
+    @Builder.Default
+    private BigDecimal investedAmount = BigDecimal.ZERO;
+    @Builder.Default
+    private BigDecimal currentAmount = BigDecimal.ZERO;
+    @Builder.Default
+    private BigDecimal balance = BigDecimal.ZERO;
 
     public void update(Transaction transaction) {
         priceAvg = priceAvg
@@ -30,4 +36,10 @@ public class Stock {
         amount = amount.add(transaction.getAmount());
     }
 
+    public void updateWithPrice(BigDecimal price) {
+        setPrice(price);
+        investedAmount = amount.multiply(priceAvg);
+        currentAmount = amount.multiply(price);
+        balance = investedAmount.subtract(currentAmount);
+    }
 }
