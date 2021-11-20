@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,12 @@ public class Portfolio {
     private Long id;
     @Builder.Default
     private List<Stock> stocks = new ArrayList<>();
+    @Builder.Default
+    private BigDecimal investedAmount = BigDecimal.ZERO;
+    @Builder.Default
+    private BigDecimal currentAmount = BigDecimal.ZERO;
+    @Builder.Default
+    private BigDecimal balance = BigDecimal.ZERO;
     private Long userId;
 
     public void update(List<Transaction> transactions) {
@@ -42,5 +49,11 @@ public class Portfolio {
                 .stream()
                 .filter(stock -> transaction.getStock().getTicker().equalsIgnoreCase(stock.getTicker()))
                 .findAny();
+    }
+
+    public void summaryze(Stock stock) {
+        investedAmount = investedAmount.add(stock.getInvestedAmount());
+        currentAmount = currentAmount.add(stock.getCurrentAmount());
+        balance = balance.add(stock.getBalance());
     }
 }

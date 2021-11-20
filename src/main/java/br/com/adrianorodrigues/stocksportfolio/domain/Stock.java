@@ -40,6 +40,6 @@ public class Stock {
         setPrice(price);
         investedAmount = amount.multiply(priceAvg);
         currentAmount = amount.multiply(price);
-        balance = investedAmount.subtract(currentAmount);
+        balance = currentAmount.subtract(investedAmount);
     }
 }

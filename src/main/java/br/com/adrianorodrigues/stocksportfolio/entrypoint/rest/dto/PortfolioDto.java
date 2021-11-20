@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,9 @@ import java.util.List;
 public class PortfolioDto {
 
     private Long id;
+    private BigDecimal investedAmount;
+    private BigDecimal currentAmount;
+    private BigDecimal balance;
     @Builder.Default
     private List<StockDto> stocks = new ArrayList<>();
 
