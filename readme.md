@@ -9,6 +9,7 @@ http://localhost:8080/swagger-ui/#/
 ### Rest performance tests
 
 https://filia-aleks.medium.com/microservice-performance-battle-spring-mvc-vs-webflux-80d39fd81bf0
+https://github.com/tsenart/vegeta
 
 ### Queue
 
