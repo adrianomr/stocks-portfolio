@@ -3,7 +3,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/stocks-portfolio
     username: postgres
     password: postgres
-  jpa.hibernate.ddl-auto: update
+  jpa.hibernate.ddl-auto: validate
 
 amazon:
   accessKey: ${AMAZON_ACCESS_KEY}
