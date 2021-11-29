@@ -11,7 +11,7 @@ class StockTest {
     @Test
     void update() {
         Stock stock = Stock.builder().priceAvg(BigDecimal.TEN).amount(BigDecimal.ONE).build();
-        stock.update(Transaction.builder().amount(BigDecimal.valueOf(5)).price(BigDecimal.valueOf(5)).build());
+        stock.updateWithTransaction(Transaction.builder().amount(BigDecimal.valueOf(5)).price(BigDecimal.valueOf(5)).build());
 
         assertEquals(BigDecimal.valueOf(5.833333), stock.getPriceAvg());
     }

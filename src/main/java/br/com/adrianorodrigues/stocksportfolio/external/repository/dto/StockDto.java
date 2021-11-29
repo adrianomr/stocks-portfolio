@@ -1,6 +1,5 @@
 package br.com.adrianorodrigues.stocksportfolio.external.repository.dto;
 
-import br.com.adrianorodrigues.stocksportfolio.enums.TransactionType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,7 +23,9 @@ public class StockDto {
     BigDecimal priceAvg;
     @Column
     BigDecimal amount;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column
+    BigDecimal grade;
+    @ManyToOne(fetch = FetchType.EAGER)
     StocksPortfolioDto portfolio;
 
 }

@@ -8,7 +8,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class StockDtoAdapter {
 
-    static StockDto convert(StocksPortfolioDto portfolio, Stock stock){
+    public static StockDto convert(StocksPortfolioDto portfolio, Stock stock){
         return StockDto
                 .builder()
                 .id(stock.getId())
@@ -19,4 +19,7 @@ public class StockDtoAdapter {
                 .build();
     }
 
+    public static StockDto convert(Stock stock) {
+        return StockDtoAdapterHelper.INSTACE.convert(stock);
+    }
 }

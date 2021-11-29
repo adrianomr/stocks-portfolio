@@ -39,7 +39,7 @@ class GetPortfolioFromDatabaseTest {
                 .thenReturn(TokenDto.builder().userId(1L).build());
         Mockito
                 .when(stocksPortfolioRepository.findByUserId(1L))
-                .thenReturn(Optional.of(StocksPortfolioDto.builder().id(1L).stocks(Collections.singletonList(StockDto.builder().id(1L).priceAvg(BigDecimal.ZERO).amount(BigDecimal.ZERO).ticker("B3SA3").build())).build()));
+                .thenReturn(Optional.of(StocksPortfolioDto.builder().id(1L).stocks(Collections.singletonList(StockDto.builder().id(1L).priceAvg(BigDecimal.ZERO).amount(BigDecimal.ZERO).grade(BigDecimal.ZERO).ticker("B3SA3").build())).build()));
 
         Portfolio portfolio = getPortfolioFromDatabase.execute(new Portfolio());
 

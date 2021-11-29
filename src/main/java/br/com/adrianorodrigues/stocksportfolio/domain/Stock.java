@@ -27,8 +27,10 @@ public class Stock {
     private BigDecimal currentAmount = BigDecimal.ZERO;
     @Builder.Default
     private BigDecimal balance = BigDecimal.ZERO;
+    @Builder.Default
+    private BigDecimal grade = BigDecimal.ZERO;
 
-    public void update(Transaction transaction) {
+    public void updateWithTransaction(Transaction transaction) {
         priceAvg = priceAvg
                 .multiply(amount)
                 .add(transaction.getAmount().multiply(transaction.getPrice()))

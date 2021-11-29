@@ -36,7 +36,7 @@ public class Portfolio {
         Stock stock = findStock(transaction)
                 .orElseGet(() -> addStock(transaction));
 
-        stock.update(transaction);
+        stock.updateWithTransaction(transaction);
     }
 
     private Stock addStock(Transaction transaction) {

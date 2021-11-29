@@ -159,4 +159,5 @@ class PortfolioControllerTest {
                 .price(BigDecimal.valueOf(10))
                 .build();
     }
+
 }
