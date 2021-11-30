@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,6 +30,10 @@ public class Stock {
     private BigDecimal balance = BigDecimal.ZERO;
     @Builder.Default
     private BigDecimal grade = BigDecimal.ZERO;
+    @Builder.Default
+    private BigDecimal targetAmount = BigDecimal.ZERO;
+    @Builder.Default
+    private BigDecimal amountToInvest = BigDecimal.ZERO;
 
     public void updateWithTransaction(Transaction transaction) {
         priceAvg = priceAvg
@@ -43,5 +48,12 @@ public class Stock {
         investedAmount = amount.multiply(priceAvg);
         currentAmount = amount.multiply(price);
         balance = currentAmount.subtract(investedAmount);
+    }
+
+    public void updateTargetAmount(BigDecimal currentTotalAmount, BigDecimal totalGrade) {
+        targetAmount = currentTotalAmount
+                .multiply(Objects.isNull(grade) ? BigDecimal.ZERO : grade)
+                .divide(totalGrade, 2, RoundingMode.HALF_EVEN);
+        amountToInvest = targetAmount.subtract(currentAmount);
     }
 }

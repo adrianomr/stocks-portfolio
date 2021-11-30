@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @NoArgsConstructor
@@ -23,6 +24,8 @@ public class Portfolio {
     private BigDecimal investedAmount = BigDecimal.ZERO;
     @Builder.Default
     private BigDecimal currentAmount = BigDecimal.ZERO;
+    @Builder.Default
+    private BigDecimal totalGrade = BigDecimal.ZERO;
     @Builder.Default
     private BigDecimal balance = BigDecimal.ZERO;
     private Long userId;
@@ -55,5 +58,10 @@ public class Portfolio {
         investedAmount = investedAmount.add(stock.getInvestedAmount());
         currentAmount = currentAmount.add(stock.getCurrentAmount());
         balance = balance.add(stock.getBalance());
+        totalGrade = totalGrade.add(Objects.isNull(stock.getGrade()) ? BigDecimal.ZERO : stock.getGrade());
+    }
+
+    public void rebalancing(Stock stock) {
+        stock.updateTargetAmount(this.currentAmount, this.totalGrade);
     }
 }

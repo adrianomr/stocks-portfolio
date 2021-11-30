@@ -22,5 +22,8 @@ public class StockDto {
     private BigDecimal currentAmount;
     private BigDecimal balance;
     private BigDecimal grade;
+    private BigDecimal targetAmount;
+    private BigDecimal amountToInvest;
+
 
 }
