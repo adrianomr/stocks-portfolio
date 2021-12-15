@@ -126,7 +126,7 @@ public class ReactiveWebClientImpl implements ReactiveWebClient {
         } catch (Exception e) {
             log.error("Unable to convert body", e);
         }
-        return "";
+        return "{}";
     }
 
     public WebClient getWebClient() {

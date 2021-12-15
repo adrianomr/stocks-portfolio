@@ -51,9 +51,11 @@ public class Stock {
     }
 
     public void updateTargetAmount(BigDecimal currentTotalAmount, BigDecimal totalGrade) {
-        targetAmount = currentTotalAmount
-                .multiply(Objects.isNull(grade) ? BigDecimal.ZERO : grade)
-                .divide(totalGrade, 2, RoundingMode.HALF_EVEN);
+        targetAmount = totalGrade.compareTo(BigDecimal.ZERO) <= 0 ?
+                BigDecimal.ZERO :
+                currentTotalAmount
+                        .multiply(Objects.isNull(grade) ? BigDecimal.ZERO : grade)
+                        .divide(totalGrade, 2, RoundingMode.HALF_EVEN);
         amountToInvest = targetAmount.subtract(currentAmount);
     }
 }
