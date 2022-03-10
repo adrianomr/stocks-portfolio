@@ -14,6 +14,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.net.URI;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -22,6 +24,7 @@ public class ReactiveWebClientImpl implements ReactiveWebClient {
 
     private WebClient webClient;
     private HttpClient httpClient;
+    private static Charset charset = StandardCharsets.UTF_8;
 
     public ReactiveWebClientImpl(String baseUrl) {
         buildHttpClient();
@@ -38,7 +41,7 @@ public class ReactiveWebClientImpl implements ReactiveWebClient {
 
     private void buildHttpClient() {
         SslContextFactory.Client sslContextFactory = new SslContextFactory.Client();
-        httpClient = new HttpClient(sslContextFactory){
+        httpClient = new HttpClient(sslContextFactory) {
             @Override
             public Request newRequest(URI uri) {
                 return enhance(super.newRequest(uri));
@@ -61,12 +64,9 @@ public class ReactiveWebClientImpl implements ReactiveWebClient {
                     formatHeaders(theRequest.getHeaders()),
                     formatParams(theRequest.getParams())));
         });
-        request.onRequestContent((theRequest, content) -> {
-            groupRequest.append(String.format(", Body: %s", contentToString(content)));
-        });
-        request.onRequestSuccess(theRequest -> {
-            log.trace(groupRequest.toString());
-        });
+        request.onRequestContent((theRequest, content) ->
+                groupRequest.append(String.format(", Body: %s", contentToString(content))));
+        request.onRequestSuccess(theRequest -> log.trace(groupRequest.toString()));
 
         request.onResponseBegin(theResponse -> {
             timer.stop();
@@ -76,12 +76,9 @@ public class ReactiveWebClientImpl implements ReactiveWebClient {
                     theResponse.getStatus(),
                     timer.getTotalTimeMillis()));
         });
-        request.onResponseContent((theResponse, content) -> {
-            groupResponse.append(String.format(", Body: %s", contentToString(content)));
-        });
-        request.onResponseSuccess(theResponse -> {
-            log.trace(groupResponse.toString());
-        });
+        request.onResponseContent((theResponse, content) ->
+                groupResponse.append(String.format(", Body: %s", contentToString(content))));
+        request.onResponseSuccess(theResponse -> log.trace(groupResponse.toString()));
         return request;
     }
 
@@ -120,7 +117,7 @@ public class ReactiveWebClientImpl implements ReactiveWebClient {
 
     private String contentToString(ByteBuffer byteBuffers) {
         try {
-            String content = new String(byteBuffers.array()).replaceAll("\r\n|\r|\n|\t", "");
+            String content = charset.decode(byteBuffers).toString().replaceAll("\r\n|\r|\n|\t", "");
             int index = content.lastIndexOf("}");
             return content.substring(0, index + 1);
         } catch (Exception e) {
