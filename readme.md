@@ -26,3 +26,5 @@ https://medium.com/equals-lab/construindo-um-servi%C3%A7o-utilizando-spring-boot
 #### Grafana
 
 https://medium.com/javarevisited/springboot-app-monitoring-with-grafana-prometheus-7c723f0dec15
+
+https://github.com/adrianomr/observability
