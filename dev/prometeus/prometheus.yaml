@@ -10,5 +10,6 @@ scrape_configs:
   - job_name: 'spring-actuator'
     metrics_path: '/actuator/prometheus' # Job to scrape application metrics
     scrape_interval: 5s
+    scheme: https
     static_configs:
-      - targets: ['192.168.88.253:8080']
+      - targets: ['ar-stocks-portfolio.herokuapp.com']

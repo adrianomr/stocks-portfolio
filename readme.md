@@ -8,6 +8,8 @@ http://localhost:8080/swagger-ui/#/
 
 This application utilizes prometheus and grafana as observability tools.
 
+Dashboard to import: Micrometer JVM dashboard 4701
+
 ## References
 
 ### Rest performance tests
