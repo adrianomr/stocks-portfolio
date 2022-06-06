@@ -23,8 +23,12 @@ https://medium.com/equals-lab/construindo-um-servi%C3%A7o-utilizando-spring-boot
 
 ### Observability
 
+https://github.com/adrianomr/observability
+
 #### Grafana
 
 https://medium.com/javarevisited/springboot-app-monitoring-with-grafana-prometheus-7c723f0dec15
 
-https://github.com/adrianomr/observability
+#### New Relic
+
+https://newrelic.com/blog/how-to-relic/how-to-monitor-spring-boot-applications-using-micrometer-metrics
