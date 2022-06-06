@@ -4,10 +4,17 @@ spring:
     username: postgres
     password: postgres
   jpa.hibernate.ddl-auto: validate
+  application:
+    name: stocks-portfolio
 
 amazon:
   accessKey: ${AMAZON_ACCESS_KEY}
   secretKey: ${AMAZON_SECRET_KEY}
+
+observability:
+  newrelic:
+    apiKey: ${NEWRELIC_API_KEY}
+    uri: ${NEWRELIC_URI}
 
 gateway:
   url:
